@@ -25,8 +25,6 @@ install()
 
     install_wireguard
 
-    install_virtualbox
-
     install_vscode
     install_discord
     install_viber
@@ -35,20 +33,17 @@ install()
 
     install_minecraft
 
-    install_keepass2_plugins
     install_typora_themes
 
     install_extensions
     configure_extensions
 
     install_tresorit
-    install_protonmail_bridge
 
     install_dotbash
 
     if [[ -n $LAPTOP ]]; then
         install_laptop_apt_packages
-        install_laptop_extensions
     fi
 
     sudo apt autoremove -y
@@ -156,14 +151,13 @@ install_apt_packages()
     sudo apt update
 
     sudo apt install -y \
-        keepass2 \
+        keepassxc \
         libreoffice \
         kolourpaint \
         gnome-tweaks \
         gnome-calendar \
         compizconfig-settings-manager \
         gnome-photos \
-        xdotool \
         yubikey-personalization-gui \
         typora \
         remmina \
@@ -190,33 +184,10 @@ install_wireguard()
     fi
 }
 
-install_protonmail_bridge()
-{
-    PKGBUILD=$(curl https://protonmail.com/download/beta/PKGBUILD)
-
-    PACKAGE_VERSION=$(echo "$PKGBUILD" | head -n 4 | tail -n 1)
-    PACKAGE_RELEASE=$(echo "$PKGBUILD" | head -n 5 | tail -n 1)
-
-    wget https://protonmail.com/download/beta/protonmail-bridge_${PACKAGE_VERSION#pkgver=}-${PACKAGE_RELEASE#pkgrel=}_amd64.deb -O protonmail-bridge.deb
-
-    sudo apt install -y ./protonmail-bridge.deb
-}
-
 install_minecraft()
 {
     wget https://launcher.mojang.com/download/Minecraft.deb
     sudo apt install -y ./Minecraft.deb
-}
-
-install_virtualbox()
-{
-    # Automatically accept virtualbox-ext-pack license agreement
-    echo virtualbox-ext-pack virtualbox-ext-pack/license select true | sudo debconf-set-selections
-
-    sudo apt install -y virtualbox \
-        virtualbox-guest-additions-iso \
-        virtualbox-ext-pack
-    sudo modprobe vboxdrv
 }
 
 install_vscode()
@@ -251,38 +222,10 @@ install_teamviewer()
     sudo apt install -y ./teamviewer.deb
 }
 
-install_keybase()
-{
-    curl --remote-name https://prerelease.keybase.io/keybase_amd64.deb
-    sudo apt install -y ./keybase_amd64.deb
-    run_keybase
-}
-
 install_tresorit()
 {
     wget https://installerstorage.blob.core.windows.net/public/install/tresorit_installer.run
     sh ./tresorit_installer.run
-}
-
-install_keepass2_plugins()
-{
-    install_keyotp_plugin
-    install_keechallenge_plugin
-}
-
-install_keyotp_plugin()
-{
-    wget https://bitbucket.org/devinmartin/keeotp/downloads/KeeOtp-1.3.9.zip
-    unzip KeeOtp-1.3.9.zip
-    sudo mv ./dlls/* /usr/lib/keepass2/Plugins/
-}
-
-install_keechallenge_plugin()
-{
-    wget https://github.com/brush701/keechallenge/releases/download/1.5/KeeChallenge_1.5.zip
-    unzip KeeChallenge_1.5.zip
-    sudo mv ./KeeChallenge_1.5/64bit/* /usr/lib/keepass2/Plugins/
-    sudo mv ./KeeChallenge_1.5/* /usr/lib/keepass2/Plugins/
 }
 
 install_typora_themes()
@@ -304,7 +247,6 @@ install_extensions() {
             "clock-override@gnomeshell.kryogenix.org"
             "freon@UshakovVasilii_Github.yahoo.com"
             "dash-to-panel@jderose9.github.com"
-            "gsconnect@andyholmes.github.io"
             "lockkeys@vaina.lt"
             "panel-osd@berend.de.schouwer.gmail.com"
             "sound-output-device-chooser@kgshank.net"
@@ -318,16 +260,6 @@ install_extensions() {
             enable_gnome_extension $extension_uuid
         done
     fi    
-}
-
-install_laptop_extensions()
-{
-    if [[ -x "$(command -v gnome-shell)" ]]; then
-        disable_gnome_extension "dash-to-panel@jderose9.github.com"
-
-        install_gnome_extension "dash-to-dock@micxgx.gmail.com"
-        enable_gnome_extension "dash-to-dock@micxgx.gmail.com"
-    fi
 }
 
 install_gnome_extension()
