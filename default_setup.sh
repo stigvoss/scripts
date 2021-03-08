@@ -117,7 +117,13 @@ install_microsoft_apt_packages()
     if [[ $(apt-cache search "^dotnet-sdk-3.1$") ]]; then
         sudo apt install -y dotnet-sdk-3.1
     else
-        echo ".NET Core SDK cannot be found."
+        echo ".NET Core SDK 3.1 cannot be found."
+    fi
+    
+    if [[ $(apt-cache search "^dotnet-sdk-5.0$") ]]; then
+        sudo apt install -y dotnet-sdk-5.0
+    else
+        echo ".NET Core SDK 5.0 cannot be found."
     fi
 
     if [[ $(apt-cache search "^powershell$") ]]; then
