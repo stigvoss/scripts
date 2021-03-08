@@ -15,15 +15,12 @@ install()
     add_typora_repo
     add_microsoft_repo
     add_signal_repo
-    add_wireguard_repo
 
     install_apt_packages
     install_microsoft_apt_packages
 
     replace_system_snap_packages
     install_snap_packages
-
-    install_wireguard
 
     install_vscode
     install_discord
@@ -69,13 +66,6 @@ init()
     fi
 
     . /etc/lsb-release
-}
-
-add_wireguard_repo()
-{
-    if [[ ${DISTRIB_RELEASE:0:2} < 20 ]]; then
-        sudo add-apt-repository -y ppa:wireguard/wireguard
-    fi
 }
 
 add_signal_repo()
@@ -140,10 +130,6 @@ install_microsoft_apt_packages()
 install_snap_packages()
 {
     sudo snap install telegram-desktop
-
-    if [[ $DISTRIB_RELEASE == "18.04" ]]; then
-        sudo snap install communitheme
-    fi
 }
 
 install_apt_packages()
@@ -172,16 +158,8 @@ install_apt_packages()
         lm-sensors \
         qrencode \
         gnome-weather \
-        cryptsetup
-}
-
-install_wireguard()
-{
-    if [[ ${DISTRIB_RELEASE:0:2} < 20 ]]; then
-        sudo apt install -y wireguard
-    else
-        sudo apt install -y wireguard-dkms
-    fi
+        cryptsetup \
+        wireguard-dkms
 }
 
 install_minecraft()
