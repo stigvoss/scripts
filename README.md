@@ -2,6 +2,5 @@
 
 A collection of utility scripts.
 
-* default_applications.sh - *Setup applications on a new Ubuntu installation.*
-* saltpack-gist.sh - *Use Keybase to encrypt a saltpack message and upload it to a Github Gist.*
+* default_setup.sh - *Setup applications on a new Ubuntu installation.*
 * wg_genkeypair.sh - *Generate a Wireguard keypair.*
