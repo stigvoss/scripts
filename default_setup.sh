@@ -17,6 +17,8 @@ install()
     add_signal_repo
 
     install_apt_packages
+    remove_apt_packages
+    
     install_microsoft_apt_packages
 
     replace_system_snap_packages
@@ -36,6 +38,8 @@ install()
     configure_extensions
 
     install_tresorit
+    
+    install_jetbrains_toolbox
 
     install_dotbash
 
@@ -168,6 +172,13 @@ install_apt_packages()
         wireguard-dkms
 }
 
+remove_apt_packages()
+{
+	sudo apt update
+	
+	sudo apt remove -y dleyna-renderer
+}
+
 install_minecraft()
 {
     wget https://launcher.mojang.com/download/Minecraft.deb
@@ -210,6 +221,13 @@ install_tresorit()
 {
     wget https://installerstorage.blob.core.windows.net/public/install/tresorit_installer.run
     sh ./tresorit_installer.run
+}
+
+install_jetbrains_toolbox()
+{
+    wget -cO jetbrains-toolbox.tar.gz "https://data.services.jetbrains.com/products/download?platform=linux&code=TBA"
+    tar -xzf jetbrains-toolbox.tar.gz
+    ./jetbrains-toolbox-*/jetbrains-toolbox
 }
 
 install_typora_themes()
