@@ -41,6 +41,8 @@ install()
     
     install_jetbrains_toolbox
 
+    install_plexamp
+
     install_dotbash
 
     if [[ -n $LAPTOP ]]; then
@@ -240,6 +242,29 @@ install_typora_themes()
     unzip master.zip
 
     mv ./quartz-theme-typora-master/theme/*  ~/.config/Typora/themes/
+}
+
+install_plexamp()
+{
+    wget https://plexamp.plex.tv/plexamp.plex.tv/desktop/Plexamp-3.4.4.AppImage
+    mv Plexamp-3.4.4.AppImage ~/plexamp.AppImage
+    chmod +x ~/plexamp.AppImage
+
+    mkdir -p ~/.icons/plexamp/
+    wget https://plexamp.com/img/plexamp.svg -O ~/.icons/plexamp/plexamp.svg
+
+    cat >> ~/.local/share/applications/Plexamp.desktop << EOL
+[Desktop Entry]
+Type=Application
+Name=Plexamp
+GenericName=Plexamp
+Comment=A beautiful Plex music player for audiophiles, curators, and hipsters
+Exec=/home/stig/plexamp.AppImage %U
+Icon=/home/stig/.icons/plexamp/plexamp.svg
+Terminal=false
+Categories=Sound;\s;Audio;
+MimeType=application/x-iso9660-appimage;
+EOL
 }
 
 install_extensions() {
