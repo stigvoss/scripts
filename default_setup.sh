@@ -50,6 +50,8 @@ install()
     fi
 
     sudo apt autoremove -y
+
+    configure
 }
 
 init()
@@ -72,6 +74,11 @@ init()
     fi
 
     . /etc/lsb-release
+}
+
+configure()
+{
+    sudo update-alternatives --set editor /usr/bin/nvim
 }
 
 add_signal_repo()
