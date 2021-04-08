@@ -171,7 +171,8 @@ install_apt_packages()
         qrencode \
         gnome-weather \
         cryptsetup \
-        wireguard-dkms
+        wireguard-dkms \
+	neovim
 }
 
 remove_apt_packages()
