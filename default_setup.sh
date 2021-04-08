@@ -310,11 +310,9 @@ configure_extensions()
 
 install_dotbash()
 {
-    # TODO: Download and install dotbash from Git.
-
-    # bash <(curl -s https://dotbash.stigvoss.dk/install.sh)
-
-    echo "Install dotbash"
+    git clone https://github.com/stigvoss/dotconfig.git
+    mv ./dotconfig ~
+    bash ~/dotconfig/install.sh
 }
 
 install
