@@ -337,8 +337,11 @@ disable_gnome_extensions()
 
 configure_extensions()
 {
-    wget -qO /tmp/dash-to-panel.conf https://raw.githubusercontent.com/stigvoss/dconf-files/master/dash-to-panel.conf
-    dconf load /org/gnome/shell/extensions/dash-to-panel/ < /tmp/dash-to-panel.conf
+    git clone git@github.com:stigvoss/dconf-files.git
+    dconf load /org/gnome/shell/extensions/lockkeys/ < ./dconf-files/lockkeys.conf
+    dconf load /org/gnome/shell/extensions/clock_override/ < ./dconf-files/clock_override.conf
+    dconf load /org/gnome/shell/extensions/panel-osd/ < ./dconf-files/panel-osd.conf
+    dconf write /org/gnome/shell/favorite-apps "$(cat favorite-apps.conf)"
 }
 
 install_dotbash()
