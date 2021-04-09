@@ -203,7 +203,7 @@ install_vscode()
 
 install_discord()
 {
-    wget https://dl.discordapp.net/apps/linux/0.0.13/discord-0.0.13.deb -O discord.deb
+    wget https://dl.discordapp.net/apps/linux/0.0.14/discord-0.0.14.deb -O discord.deb
     sudo apt install -y ./discord.deb
 }
 
