@@ -337,7 +337,7 @@ disable_gnome_extensions()
 
 configure_extensions()
 {
-    git clone git@github.com:stigvoss/dconf-files.git
+    git clone https://github.com/stigvoss/dconf-files.git
     dconf load /org/gnome/shell/extensions/dash-to-panel/ < ./dconf-files/dash-to-panel.conf
     dconf load /org/gnome/shell/extensions/lockkeys/ < ./dconf-files/lockkeys.conf
     dconf load /org/gnome/shell/extensions/clock_override/ < ./dconf-files/clock_override.conf
