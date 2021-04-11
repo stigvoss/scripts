@@ -344,7 +344,7 @@ configure_extensions()
     dconf load /org/gnome/shell/extensions/lockkeys/ < $WORKDIR/dconf-files/lockkeys.conf
     dconf load /org/gnome/shell/extensions/clock_override/ < $WORKDIR/dconf-files/clock_override.conf
     dconf load /org/gnome/shell/extensions/panel-osd/ < $WORKDIR/dconf-files/panel-osd.conf
-    dconf write /org/gnome/shell/favorite-apps "$(cat $WORKDIR/favorite-apps.conf)"
+    dconf write /org/gnome/shell/favorite-apps "$(cat $WORKDIR/dconf-files/favorite-apps.conf)"
 }
 
 install_dotbash()
