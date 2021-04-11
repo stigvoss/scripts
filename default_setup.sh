@@ -3,7 +3,8 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-cd /tmp
+WORKDIR=/tmp
+cd $WORKDIR
 
 install()
 {
@@ -301,16 +302,16 @@ install_gnome_extension()
 {
     EXTENSION_UUID=$1
 
-    wget -qO /tmp/$EXTENSION_UUID.zip https://extensions.gnome.org/download-extension/$EXTENSION_UUID.shell-extension.zip?shell_version=$GDM_VERSION
+    wget -qO $WORKDIR/$EXTENSION_UUID.zip https://extensions.gnome.org/download-extension/$EXTENSION_UUID.shell-extension.zip?shell_version=$GDM_VERSION
 
     if [[ -x "$(command -v gnome-extensions)" ]]; then
-        gnome-extensions install /tmp/$EXTENSION_UUID.zip
+        gnome-extensions install $WORKDIR/$EXTENSION_UUID.zip
     else
         mkdir -p ~/.local/share/gnome-shell/extensions/$EXTENSION_UUID
-        unzip -n /tmp/$EXTENSION_UUID.zip -d ~/.local/share/gnome-shell/extensions/$EXTENSION_UUID
+        unzip -n $WORKDIR/$EXTENSION_UUID.zip -d ~/.local/share/gnome-shell/extensions/$EXTENSION_UUID
     fi
 
-    rm /tmp/$EXTENSION_UUID.zip
+    rm $WORKDIR/$EXTENSION_UUID.zip
 }
 
 enable_gnome_extension()
@@ -337,12 +338,13 @@ disable_gnome_extensions()
 
 configure_extensions()
 {
+    cd $WORKDIR
     git clone https://github.com/stigvoss/dconf-files.git
-    dconf load /org/gnome/shell/extensions/dash-to-panel/ < ./dconf-files/dash-to-panel.conf
-    dconf load /org/gnome/shell/extensions/lockkeys/ < ./dconf-files/lockkeys.conf
-    dconf load /org/gnome/shell/extensions/clock_override/ < ./dconf-files/clock_override.conf
-    dconf load /org/gnome/shell/extensions/panel-osd/ < ./dconf-files/panel-osd.conf
-    dconf write /org/gnome/shell/favorite-apps "$(cat favorite-apps.conf)"
+    dconf load /org/gnome/shell/extensions/dash-to-panel/ < $WORKDIR/dconf-files/dash-to-panel.conf
+    dconf load /org/gnome/shell/extensions/lockkeys/ < $WORKDIR/dconf-files/lockkeys.conf
+    dconf load /org/gnome/shell/extensions/clock_override/ < $WORKDIR/dconf-files/clock_override.conf
+    dconf load /org/gnome/shell/extensions/panel-osd/ < $WORKDIR/dconf-files/panel-osd.conf
+    dconf write /org/gnome/shell/favorite-apps "$(cat $WORKDIR/favorite-apps.conf)"
 }
 
 install_dotbash()
