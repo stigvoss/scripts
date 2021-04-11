@@ -193,52 +193,52 @@ remove_apt_packages()
 install_minecraft()
 {
     wget https://launcher.mojang.com/download/Minecraft.deb
-    sudo apt install -y ./Minecraft.deb
+    sudo apt install -y $WORKDIR/Minecraft.deb
 }
 
 install_vscode()
 {
     wget -O vscode.deb https://go.microsoft.com/fwlink/?LinkID=760868
-    sudo apt install -y ./vscode.deb
+    sudo apt install -y $WORKDIR/vscode.deb
 }
 
 install_discord()
 {
     wget https://dl.discordapp.net/apps/linux/0.0.14/discord-0.0.14.deb -O discord.deb
-    sudo apt install -y ./discord.deb
+    sudo apt install -y $WORKDIR/discord.deb
 }
 
 install_viber()
 {
     wget https://download.cdn.viber.com/cdn/desktop/Linux/viber.deb
     if [[ $(apt-cache search "^libssl1.0.0$") ]]; then
-        sudo apt install -y ./viber.deb
+        sudo apt install -y $WORKDIR/viber.deb
     elif [[ $(apt-cache search "^libssl1.1$") ]]; then
         dpkg-deb -x viber.deb viber
         dpkg-deb --control viber.deb viber/DEBIAN
         sed -i -e 's/libssl1.0.0/libssl1.1/g' viber/DEBIAN/control
         dpkg -b viber viber-with-libssl1.1.deb
-        sudo apt install ./viber-with-libssl1.1.deb
+        sudo apt install $WORKDIR/viber-with-libssl1.1.deb
     fi
 }
 
 install_teamviewer()
 {
     wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb -O teamviewer.deb
-    sudo apt install -y ./teamviewer.deb
+    sudo apt install -y $WORKDIR/teamviewer.deb
 }
 
 install_tresorit()
 {
     wget https://installerstorage.blob.core.windows.net/public/install/tresorit_installer.run
-    sh ./tresorit_installer.run
+    sh $WORKDIR/tresorit_installer.run
 }
 
 install_jetbrains_toolbox()
 {
     wget -cO jetbrains-toolbox.tar.gz "https://data.services.jetbrains.com/products/download?platform=linux&code=TBA"
     tar -xzf jetbrains-toolbox.tar.gz
-    ./jetbrains-toolbox-*/jetbrains-toolbox
+    $WORKDIR/jetbrains-toolbox-*/jetbrains-toolbox
 }
 
 install_typora_themes()
@@ -250,7 +250,7 @@ install_typora_themes()
     wget https://github.com/troennes/quartz-theme-typora/archive/master.zip
     unzip master.zip
 
-    mv ./quartz-theme-typora-master/theme/*  ~/.config/Typora/themes/
+    mv $WORKDIR/quartz-theme-typora-master/theme/*  ~/.config/Typora/themes/
 }
 
 install_plexamp()
@@ -350,7 +350,7 @@ configure_extensions()
 install_dotbash()
 {
     git clone https://github.com/stigvoss/dotconfig.git
-    mv ./dotconfig ~
+    mv $WORKDIR/dotconfig ~
     bash ~/dotconfig/install.sh
 }
 
